@@ -6,15 +6,28 @@
     <h1 class="text-4xl text-success mb-4">Contact Manager</h1>
 
     <!-- Search Field -->
-    
-        <label class="input relative w-80 max-w-md mb-4">
-            
-            <input type="search" name="search" value="{{ request.GET.q }}" placeholder="Search contacts..." class="pl-8 pr-2 py-2 w-full border rounded outline-none" hx-get='{%url 'search'%}' hx-target='#contacts-list' hx-trigger='keyup delay:500ms'  />
-        </label>
-    
+    <label class="relative flex items-center w-80 max-w-md mb-4">
+        <input 
+            type="search" 
+            name="search" 
+            value="{{ request.GET.q }}" 
+            placeholder="Search contacts..." 
+            class="pl-3 pr-10 py-2 w-full border rounded outline-none"
+            hx-get="{% url 'search' %}" 
+            hx-target="#contacts-list" 
+            hx-trigger="keyup delay:500ms" 
+            hx-indicator="#spinner"
+            hx-on::before-request="document.getElementById('contacts-list').style.opacity=0.4"
+            hx-on::after-request="document.getElementById('contacts-list').style.opacity=1"
+        />
+
+        <!-- Spinner (absolute positioned on the right side inside input) -->
+        <div id="spinner" class="absolute right-3 htmx-indicator">
+            {% include 'partials/spinner.html' %}
+        </div>
+    </label>
 
     {% include 'partials/contact-list.html' %}
-
 </div>
 
 {% endblock %}
