@@ -4,22 +4,17 @@
 
 <div>
     <h1 class="text-4xl text-success mb-4">Contact Manager</h1>
+    <button class="btn btn-primary mb-4" onclick="contact_model.showModal()">Add New </button>
+
+    {%include 'partials/add-contact-model.html'%}
 
     <!-- Search Field -->
     <label class="relative flex items-center w-80 max-w-md mb-4">
-        <input 
-            type="search" 
-            name="search" 
-            value="{{ request.GET.q }}" 
-            placeholder="Search contacts..." 
-            class="pl-3 pr-10 py-2 w-full border rounded outline-none"
-            hx-get="{% url 'search' %}" 
-            hx-target="#contacts-list" 
-            hx-trigger="keyup delay:500ms" 
-            hx-indicator="#spinner"
+        <input type="search" name="search" value="{{ request.GET.q }}" placeholder="Search contacts..."
+            class="pl-3 pr-10 py-2 w-full border rounded outline-none" hx-get="{% url 'search' %}"
+            hx-target="#contacts-list" hx-trigger="keyup delay:500ms" hx-indicKWator="#spinner"
             hx-on::before-request="document.getElementById('contacts-list').style.opacity=0.4"
-            hx-on::after-request="document.getElementById('contacts-list').style.opacity=1"
-        />
+            hx-on::after-request="document.getElementById('contacts-list').style.opacity=1" />
 
         <!-- Spinner (absolute positioned on the right side inside input) -->
         <div id="spinner" class="absolute right-3 htmx-indicator">
@@ -29,5 +24,14 @@
 
     {% include 'partials/contact-list.html' %}
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        document.addEventListener('fail',()=>{
+            document.getElementById('contact_model').showModal();
+        })
+    })
+</script>
+
 
 {% endblock %}
