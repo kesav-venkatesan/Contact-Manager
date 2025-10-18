@@ -1,0 +1,30 @@
+<div id="contacts-list">
+    {% if contacts %}
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-pin-rows">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.created_at|date:"M d, Y" }}</td>
+                    <td>
+                        <button class="btn btn-xs btn-error">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>No contacts found.</p>
+    {% endif %}
+</div>
